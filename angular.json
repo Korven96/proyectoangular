@@ -24,7 +24,7 @@
                 "input": "public"
               },
               {
-                "glob": "favicon.svg",
+                "glob": "favicon.png",
                 "input": "src",
                 "output": "/"
               }

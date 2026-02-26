@@ -5,15 +5,56 @@
     <h1 class="title">Pokédex</h1>
   </header>
 
+  <div class="filtro-container">
+
+    <!-- Botón para desplegar -->
+    <button class="filtro-btn" (click)="toggleFiltro()">
+      <span>Filtrar por tipo</span>
+      <span class="filtro-arrow" [class.abierto]="filtroAbierto">▼</span>
+      <span *ngIf="tiposSeleccionados.length > 0" class="filtro-badge">
+        {{ tiposSeleccionados.length }}
+      </span>
+    </button>
+
+    <!-- Panel desplegable -->
+    <div class="filtro-panel" [class.visible]="filtroAbierto">
+      <div class="filtro-header">
+        <span class="filtro-info">Selecciona hasta 2 tipos</span>
+        <button
+          class="filtro-limpiar"
+          (click)="limpiarFiltros(); $event.stopPropagation()"
+          *ngIf="tiposSeleccionados.length > 0">
+          Limpiar
+        </button>
+      </div>
+      <div class="chips-grid">
+        <button
+          *ngFor="let tipo of tipos"
+          [ngClass]="['chip', isTipoSeleccionado(tipo) ? 'chip-selected' : '']"
+          [disabled]="tiposSeleccionados.length >= 2 && !isTipoSeleccionado(tipo)"
+          (click)="toggleTipo(tipo)"
+        >
+          {{ tipo }}
+        </button>
+      </div>
+      <div class="filtro-actions">
+        <button class="btn-aplicar" (click)="aplicarFiltros()">
+          Aplicar filtros
+        </button>
+      </div>
+    </div>
+
+  </div>
+
   <main class="content">
 
     <div class="grid">
-      <div class="card" *ngFor="let pokemon of pokemonList">
+      <div class="card" *ngFor="let pokemon of pokemonFiltrados" [routerLink]="['/pokemon', pokemon.id]">
         <span class="card-id">{{ getIdFormatted(pokemon.id) }}</span>
         <img
           [src]="pokemon.image"
-          alt="pokemon"
-          title="pokemon"
+          alt="{{ pokemon.name }}"
+          title="{{ pokemon.name }}"
           loading="lazy"
         />
         <span class="card-name">{{ pokemon.name }}</span>

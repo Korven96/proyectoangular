@@ -1,17 +1,11 @@
-import { RouterModule, Routes } from '@angular/router';
-import { NgModule } from '@angular/core';
+import { Routes } from '@angular/router';
 import { Home } from './components/home/home';
 import { PokedexComponent } from './components/pokedex/pokedex';
-
+import { PokemonDetailComponent } from './components/pokemon-detail/pokemon-detail';
 
 export const routes: Routes = [
-  { path: '', component: Home },           // Pagina de inicio
-  { path: 'pokedex', component: PokedexComponent }, // Pokedex
-  { path: '**', redirectTo: '' },          // Cualquier ruta no encontrada redirige al inicio
+  { path: '', component: Home },
+  { path: 'pokedex', component: PokedexComponent },
+  { path: 'pokemon/:id', component: PokemonDetailComponent },
+  { path: '**', redirectTo: '' },
 ];
-
-@NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
-})
-export class AppRoutingModule{ }

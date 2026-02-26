@@ -1,0 +1,91 @@
+<div class="detail-page">
+
+  <div *ngIf="loading" class="loading">
+    <div class="spinner"></div>
+  </div>
+
+  <div *ngIf="!loading && pokemon" class="detail-content">
+
+    <!-- Header -->
+    <header class="detail-header">
+      <a routerLink="/pokedex" class="back">← Pokédex</a>
+      <span class="pokemon-id">#{{ pokemon.id.toString().padStart(4, '0') }}</span>
+    </header>
+
+    <!-- Hero section -->
+    <section class="hero-section">
+      <div class="hero-left">
+        <img
+          [src]="'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/' + pokemon.id + '.png'"
+          alt="{{ pokemon.name }}"
+          title="{{ pokemon.name }}"
+          class="pokemon-img"
+        />
+      </div>
+      <div class="hero-right">
+        <h1 class="pokemon-name">{{ pokemon.name }}</h1>
+
+        <!-- Tipos -->
+        <div class="tipos">
+          <span
+            *ngFor="let t of pokemon.types"
+            class="tipo-badge"
+            [style.background]="getTypeColor(t.type.name)"
+          >
+            {{ t.type.name }}
+          </span>
+        </div>
+
+        <!-- Descripción -->
+        <p class="descripcion">{{ getDescripcion() }}</p>
+
+        <!-- Altura y peso -->
+        <div class="info-grid">
+          <div class="info-item">
+            <span class="info-label">Altura</span>
+            <span class="info-value">{{ pokemon.height / 10 }} m</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Peso</span>
+            <span class="info-value">{{ pokemon.weight / 10 }} kg</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Estadísticas -->
+    <section class="stats-section">
+      <h2 class="section-title">Estadísticas</h2>
+      <div class="stats-list">
+        <div class="stat-row" *ngFor="let stat of pokemon.stats">
+          <span class="stat-name">{{ getStatName(stat.stat.name) }}</span>
+          <span class="stat-value">{{ stat.base_stat }}</span>
+          <div class="stat-bar-bg">
+            <div
+              class="stat-bar-fill"
+              [style.width.%]="(stat.base_stat / 255) * 100"
+              [style.background]="getStatColor(stat.base_stat)"
+            ></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Evoluciones -->
+    <section class="evolutions-section" *ngIf="evolutions.length > 1">
+      <h2 class="section-title">Evoluciones</h2>
+      <div class="evolutions-list">
+        <div
+          class="evolution-card"
+          *ngFor="let evo of evolutions; let i = index"
+        >
+          <img [src]="evo.image" alt="{{ evo.name }}" title="{{ evo.name }}" />
+          <span class="evo-name">{{ evo.name }}</span>
+          <span class="evo-arrow" *ngIf="i < evolutions.length - 1">→</span>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+</div>

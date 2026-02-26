@@ -14,4 +14,14 @@ export class PokemonService {
   getPokemonPage(offset: number): Observable<any> {
     return this.http.get(`${this.baseUrl}/pokemon?limit=${this.limit}&offset=${offset}`);
   }
+  getPokemonDetail(id: number): Observable<any> {
+    return this.http.get(`${this.baseUrl}/pokemon/${id}`);
+  }
+  getPokemonSpecies(id: number): Observable<any> {
+    return this.http.get(`${this.baseUrl}/pokemon-species/${id}`);
+  }
+
+  getEvolutionChain(url: string): Observable<any> {
+    return this.http.get(url);
+  }
 }
