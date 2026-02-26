@@ -1,0 +1,33 @@
+<div class="pokedex">
+
+  <header class="header">
+    <a routerLink="/" class="back">← Inicio</a>
+    <h1 class="title">Pokédex</h1>
+  </header>
+
+  <main class="content">
+
+    <div class="grid">
+      <div class="card" *ngFor="let pokemon of pokemonList">
+        <span class="card-id">{{ getIdFormatted(pokemon.id) }}</span>
+        <img
+          [src]="pokemon.image"
+          alt="pokemon"
+          title="pokemon"
+          loading="lazy"
+        />
+        <span class="card-name">{{ pokemon.name }}</span>
+      </div>
+    </div>
+
+    <div class="load-area">
+      <div *ngIf="loading" class="spinner"></div>
+      <button *ngIf="!loading && hasMore" (click)="loadMore()" class="btn-load">
+        Cargar más
+      </button>
+      <p *ngIf="!hasMore" class="end-message">¡Has visto todos los Pokémon!</p>
+    </div>
+
+  </main>
+
+</div>

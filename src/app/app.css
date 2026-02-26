@@ -1,0 +1,11 @@
+.component-box{
+  display: flex;
+  width: 90%;
+  margin: 0 auto;
+}
+
+.component-box-item{
+  padding: 1rem;
+  margin: 0.5rem;
+  margin: 5px, 3px, 2px, 0px;
+}
