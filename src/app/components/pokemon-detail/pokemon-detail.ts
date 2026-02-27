@@ -22,8 +22,15 @@ export class PokemonDetailComponent implements OnInit {
   private cdr = inject(ChangeDetectorRef);
 
   ngOnInit() {
-    const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.cargarPokemon(id);
+    this.route.paramMap.subscribe((params) => {
+      const id = Number(params.get('id'));
+      this.loading = true;
+      this.pokemon = null;
+      this.species = null;
+      this.evolutions = [];
+      this.cargarPokemon(id);
+      this.cdr.markForCheck();
+    });
   }
 
   cargarPokemon(id: number) {

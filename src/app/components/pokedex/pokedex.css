@@ -553,3 +553,79 @@
     padding: 32px 24px;
   }
 }
+.card-types {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.card-type-badge {
+  padding: 2px 10px;
+  border-radius: 10px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: capitalize;
+  color: white;
+}
+
+.search-container {
+  margin-bottom: 24px;
+}
+
+.search-input {
+  width: 100%;
+  max-width: 400px;
+  padding: 12px 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #f0ece4;
+  font-size: 0.9rem;
+  outline: none;
+  transition: all 0.2s;
+  border-radius: 4px;
+}
+
+.search-input::placeholder {
+  color: rgba(240, 236, 228, 0.3);
+}
+
+.search-input:focus {
+  border-color: #e63946;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.filtro-nombre {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.filtro-divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.06);
+  margin-bottom: 16px;
+}
+
+.search-input {
+  width: 100%;
+  max-width: 400px;
+  padding: 10px 16px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #f0ece4;
+  font-size: 0.9rem;
+  outline: none;
+  transition: all 0.2s;
+  border-radius: 4px;
+}
+
+.search-input::placeholder {
+  color: rgba(240, 236, 228, 0.3);
+}
+
+.search-input:focus {
+  border-color: #e63946;
+  background: rgba(255, 255, 255, 0.08);
+}

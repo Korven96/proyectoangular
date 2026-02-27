@@ -7,44 +7,59 @@
 
   <div class="filtro-container">
 
-    <!-- Botón para desplegar -->
-    <button class="filtro-btn" (click)="toggleFiltro()">
-      <span>Filtrar por tipo</span>
-      <span class="filtro-arrow" [class.abierto]="filtroAbierto">▼</span>
-      <span *ngIf="tiposSeleccionados.length > 0" class="filtro-badge">
-        {{ tiposSeleccionados.length }}
-      </span>
-    </button>
+  <button class="filtro-btn" (click)="toggleFiltro()">
+    <span>Filtrar</span>
+    <span class="filtro-arrow" [class.abierto]="filtroAbierto">▼</span>
+    <span *ngIf="tiposAplicados.length > 0 || busquedaAplicada !== ''" class="filtro-badge">
+      ●
+    </span>
+  </button>
 
-    <!-- Panel desplegable -->
-    <div class="filtro-panel" [class.visible]="filtroAbierto">
-      <div class="filtro-header">
-        <span class="filtro-info">Selecciona hasta 2 tipos</span>
-        <button
-          class="filtro-limpiar"
-          (click)="limpiarFiltros(); $event.stopPropagation()"
-          *ngIf="tiposSeleccionados.length > 0">
-          Limpiar
-        </button>
-      </div>
-      <div class="chips-grid">
-        <button
-          *ngFor="let tipo of tipos"
-          [ngClass]="['chip', isTipoSeleccionado(tipo) ? 'chip-selected' : '']"
-          [disabled]="tiposSeleccionados.length >= 2 && !isTipoSeleccionado(tipo)"
-          (click)="toggleTipo(tipo)"
-        >
-          {{ tipo }}
-        </button>
-      </div>
-      <div class="filtro-actions">
-        <button class="btn-aplicar" (click)="aplicarFiltros()">
-          Aplicar filtros
-        </button>
-      </div>
+  <div class="filtro-panel" [class.visible]="filtroAbierto">
+
+    <!-- Buscador por nombre -->
+    <div class="filtro-nombre">
+      <label class="filtro-info">Buscar por nombre</label>
+      <input
+        type="text"
+        class="search-input"
+        placeholder="Ej: Pikachu..."
+        [(ngModel)]="busqueda"
+      />
+    </div>
+
+    <div class="filtro-divider"></div>
+
+    <!-- Filtro por tipo -->
+    <div class="filtro-header">
+      <span class="filtro-info">Filtrar por tipo (máx. 2)</span>
+      <button
+        class="filtro-limpiar"
+        (click)="limpiarFiltros(); $event.stopPropagation()"
+        *ngIf="tiposSeleccionados.length > 0 || busqueda !== ''">
+        Limpiar
+      </button>
+    </div>
+    <div class="chips-grid">
+      <button
+        *ngFor="let tipo of tipos"
+        [ngClass]="['chip', isTipoSeleccionado(tipo) ? 'chip-selected' : '']"
+        [disabled]="tiposSeleccionados.length >= 2 && !isTipoSeleccionado(tipo)"
+        (click)="toggleTipo(tipo)"
+      >
+        {{ tipo }}
+      </button>
+    </div>
+
+    <div class="filtro-actions">
+      <button class="btn-aplicar" (click)="aplicarFiltros()">
+        Aplicar filtros
+      </button>
     </div>
 
   </div>
+
+</div>
 
   <main class="content">
 
@@ -58,12 +73,22 @@
           loading="lazy"
         />
         <span class="card-name">{{ pokemon.name }}</span>
+        <div class="card-types">
+          <span
+            *ngFor="let tipo of pokemon.types"
+            class="card-type-badge"
+            [style.background]="getTypeColor(tipo)"
+          >
+            {{ tipo }}
+          </span>
+        </div>
       </div>
+
     </div>
 
     <div class="load-area">
       <div *ngIf="loading" class="spinner"></div>
-      <button *ngIf="!loading && hasMore" (click)="loadMore()" class="btn-load">
+      <button *ngIf="!loading && hasMore && busqueda.trim() === ''" (click)="loadMore()" class="btn-load">
         Cargar más
       </button>
       <p *ngIf="!hasMore" class="end-message">¡Has visto todos los Pokémon!</p>

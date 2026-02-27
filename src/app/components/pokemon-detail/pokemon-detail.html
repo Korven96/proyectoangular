@@ -72,19 +72,23 @@
     </section>
 
     <!-- Evoluciones -->
-    <section class="evolutions-section" *ngIf="evolutions.length > 1">
-      <h2 class="section-title">Evoluciones</h2>
-      <div class="evolutions-list">
-        <div
-          class="evolution-card"
-          *ngFor="let evo of evolutions; let i = index"
-        >
-          <img [src]="evo.image" alt="{{ evo.name }}" title="{{ evo.name }}" />
-          <span class="evo-name">{{ evo.name }}</span>
-          <span class="evo-arrow" *ngIf="i < evolutions.length - 1">→</span>
+      <section class="evolutions-section" *ngIf="evolutions.length > 1">
+        <h2 class="section-title">Evoluciones</h2>
+        <div class="evolutions-list">
+          <div class="evolution-card" *ngFor="let evo of evolutions; let i = index">
+            <div class="evo-item">
+              <img
+                [src]="evo.image"
+                alt="{{ evo.name }}"
+                title="{{ evo.name }}"
+                [routerLink]="['/pokemon', evo.id]"
+              />
+              <span class="evo-name">{{ evo.name }}</span>
+            </div>
+            <span class="evo-arrow" *ngIf="i < evolutions.length - 1">→</span>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
 
   </div>
 
